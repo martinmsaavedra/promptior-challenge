@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot de Promptior</title>
+</head>
+<body>
+    <h1>Chatbot de Promptior</h1>
+    <form id="chat-form">
+        <input type="text" id="question" name="question" placeholder="Haz una pregunta...">
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="answer"></div>
+    <div id="loading-message" style="display: none;">Cargando... Por favor, espere mientras se busca la respuesta.</div>
+
+
+    <script>
+        document.getElementById('chat-form').onsubmit = function(event) {
+            event.preventDefault();
+    
+            document.getElementById('loading-message').style.display = 'block';
+    
+            const questionValue = document.getElementById('question').value;
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: questionValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading-message').style.display = 'none';
+                document.getElementById('answer').textContent = data.answer;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loading-message').style.display = 'none';
+            });
+        };
+    </script>
+    
+</body>
+</html>

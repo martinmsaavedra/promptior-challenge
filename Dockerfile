@@ -1,5 +1,5 @@
 # Establecer la imagen base
-FROM python:3.9-slim
+FROM python:3.11
 
 # Instalar una versión específica de pipenv
 RUN pip install pipenv==2023.12.1

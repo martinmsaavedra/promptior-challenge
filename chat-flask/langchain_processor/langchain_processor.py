@@ -21,8 +21,8 @@ if not os.path.exists('data/services_data.json') or not os.path.exists('data/abo
     extraer_datos_sobre_nosotros()
     
 
-services_data = load_data('chat-flask/data/services_data.json')
-about_data = load_data('chat-flask/data/about_data.json')
+services_data = load_data('data/services_data.json')
+about_data = load_data('data/about_data.json')
 
 llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
 

@@ -42,7 +42,6 @@ packaging==23.2
 pycparser==2.21
 pydantic==2.6.2
 pydantic_core==2.16.3
-pypiwin32==223
 PySocks==1.7.1
 python-dotenv==1.0.1
 PyYAML==6.0.1

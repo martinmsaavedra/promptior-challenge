@@ -3,11 +3,6 @@ import json, os
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
-import sys
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.join(current_dir, '..')
-sys.path.append(parent_dir)
 
 load_dotenv()
 
@@ -24,6 +19,9 @@ if not os.path.exists('data/services_data.json') or not os.path.exists('data/abo
 services_data = load_data('data/services_data.json')
 about_data = load_data('data/about_data.json')
 
+print(services_data)
+print(about_data)
+
 llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
 
 def process_question_with_langchain(question):
@@ -31,12 +29,14 @@ def process_question_with_langchain(question):
     prompt_template = PromptTemplate(input_variables=["question"], template=prompt_text)
     chain = LLMChain(llm=llm, prompt=prompt_template)
     response = chain.invoke({"question": question})
+    print(response)
     return response['text'] if 'text' in response else "Lo siento, no pude generar una respuesta adecuada."
 
 def generate_summary_prompt(services_data, about_data):
     services_info = " ".join(services_data)
     about_info = " ".join(about_data)
     prompt_text = f"Services: {services_info} About: {about_info}"
+    print(prompt_text)
     return prompt_text
 
 

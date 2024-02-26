@@ -1,10 +1,7 @@
-from dotenv import load_dotenv
 import json, os
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
-
-load_dotenv()
 
 def load_data(filename):
     with open(filename, 'r', encoding='utf-8') as file:
@@ -19,7 +16,8 @@ if not os.path.exists('data/services_data.json') or not os.path.exists('data/abo
 services_data = load_data('data/services_data.json')
 about_data = load_data('data/about_data.json')
 
-llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
+openai_api_key = os.getenv('OPENAI_API_KEY')
+llm = ChatOpenAI(api_key=openai_api_key, temperature=0, model_name='gpt-3.5-turbo')
 
 def process_question_with_langchain(question):
     prompt_text = generate_summary_prompt(services_data, about_data) + f" Question: {question}."

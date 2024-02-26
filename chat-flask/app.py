@@ -9,10 +9,9 @@ def index():
 
 @app.route('/ask', methods=['POST'])
 def ask():
-    # question = request.json.get('question', '')
-    # answer = process_question_with_langchain(question)
-    # return jsonify({'answer': answer})
-    return jsonify({'answer': 'respuesta estática'})
+    question = request.json.get('question', '')
+    answer = process_question_with_langchain(question)
+    return jsonify({'answer': answer})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
